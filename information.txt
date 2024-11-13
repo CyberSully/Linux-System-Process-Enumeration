@@ -1,0 +1,68 @@
+
+==========================================
+Process and Memory Management Script Setup and Info
+==========================================
+
+This script enumerates processes, lists threads, shows loaded modules, 
+displays executable memory pages, and reads memory from processes.
+
+------------------------------------------
+Requirements:
+------------------------------------------
+- Python 3.x
+- psutil module (install via 'pip install psutil')
+- For macOS:
+  - Xcode command line tools (for 'vmmap' command)
+- For Linux (Kali):
+  - Access to /proc filesystem and memory files
+
+------------------------------------------
+Usage:
+------------------------------------------
+
+1. Enumerate all running processes:
+   Command: python script.py enumerate-processes
+   Description: Lists all running processes with their PID and names.
+
+2. List all running threads for a specific process:
+   Command: python script.py list-threads --pid <PID>
+   Description: Lists all threads of the specified process by its PID.
+
+3. List all loaded modules within a process:
+   Command: python script.py list-modules --pid <PID>
+   Description: Displays all the loaded modules for the given process PID.
+
+4. Show executable memory pages for a specific process:
+   Command: python script.py show-exec-pages --pid <PID>
+   Description: Lists all executable memory pages (e.g., r-x) for the given process.
+
+5. Read memory from a process between a specific address range:
+   Command: python script.py read-memory --pid <PID> --start-address <START_ADDRESS> --end-address <END_ADDRESS>
+   Description: Reads memory within the specified address range for the given process.
+
+------------------------------------------
+System Behavior:
+------------------------------------------
+
+- On Kali Linux (including other Linux systems):
+  - The script will use the `/proc/[pid]/maps` to list memory pages.
+  - The script will read the `/proc/[pid]/mem` file to retrieve memory content.
+
+- On macOS:
+  - The `vmmap` command is used to view memory pages for the process.
+  - Direct memory reading from `/proc/[pid]/mem` is restricted by macOS, so the memory reading functionality is unavailable.
+
+------------------------------------------
+Important Notes:
+------------------------------------------
+
+- This script requires root/administrator privileges to access certain system resources like memory.
+- On macOS, the script is limited in reading memory directly but can show memory page information using `vmmap`.
+- Ensure the appropriate permissions to access system memory and process details.
+
+------------------------------------------
+For more details or troubleshooting:
+------------------------------------------
+Visit the project's documentation or refer to the Python and psutil documentation for setup and usage guides.
+
+==========================================
